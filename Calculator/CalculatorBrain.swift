@@ -37,6 +37,8 @@ class CalculatorBrain {
         knownOps["÷"] = Op.BinaryOperation("÷", { $1 / $0 } )
         knownOps["+"] = Op.BinaryOperation("+", + )
         knownOps["−"] = Op.BinaryOperation("−", { $1 - $0 } )
+        knownOps["sin"] = Op.UnaryOperation("sin", { sin($0) })
+        knownOps["cos"] = Op.UnaryOperation("cos", { cos($0) })
     }
     
     private func evaluate(ops: [Op]) -> (result: Double?, remainOps: [Op]) {
@@ -84,5 +86,9 @@ class CalculatorBrain {
            opStack.append(operation)
         }
         return evaluate()
+    }
+    
+    func clear() {
+        opStack.removeAll(keepCapacity: false)
     }
 }
